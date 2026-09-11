@@ -1,0 +1,1407 @@
+{
+  "label": "after-keywords",
+  "pipeline": "keywords",
+  "runs": 3,
+  "top_k": 5,
+  "stages": [
+    "keywords",
+    "search",
+    "fusion"
+  ],
+  "kinds": [
+    "exact",
+    "semantic",
+    "mixed"
+  ],
+  "records": [
+    {
+      "run": 1,
+      "id": 1,
+      "kind": "exact",
+      "question": "Какие настройки нужны для asyncpg?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/readme.md",
+        "Документация/Фронтенд/04-Функциональность/Пространства.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.2553473039952223,
+        "search": 0.32557354500022484,
+        "fusion": 0.0,
+        "total": 0.5809208489954472
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "asyncpg"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 1,
+      "id": 2,
+      "kind": "exact",
+      "question": "Какая длина строки задана для Ruff?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/Team Lead | Scrum Master.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.2485691800029599,
+        "search": 0.3302392490004422,
+        "fusion": 0.0,
+        "total": 0.5788084290034021
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Ruff",
+          "строка",
+          "длина",
+          "длина строки",
+          "строка."
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 1,
+      "id": 3,
+      "kind": "exact",
+      "question": "Какие хуки запускает pre-commit?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Процессы/readme.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Календари/Сроки действия.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.17596141599642579,
+        "search": 0.3572920939986943,
+        "fusion": 0.0,
+        "total": 0.5332535099951201
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "pre-commit",
+          "commit",
+          "commit message",
+          "code review",
+          "code submission"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 4,
+      "kind": "exact",
+      "question": "Что такое FSD и какие слои в нём есть?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Работа с Git.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Календари/Сроки действия.md",
+        "Роли/Documentation Lead (Docs).md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.10099397899466567,
+        "search": 0.33579060999909416,
+        "fusion": 0.0,
+        "total": 0.4367845889937598
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "FSD",
+          "слои"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 5,
+      "kind": "exact",
+      "question": "Как инициализировать slowapi в FastAPI?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.11098791899712523,
+        "search": 0.35587605700129643,
+        "fusion": 0.0,
+        "total": 0.46686397599842167
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no_keywords /"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 6,
+      "kind": "exact",
+      "question": "Когда использовать git push --force-with-lease?",
+      "sources": [
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/QA Lead.md",
+        "Документация/Работа с Git.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.14259893499547616,
+        "search": 0.33069931600039126,
+        "fusion": 0.0,
+        "total": 0.4732982509958674
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "git push",
+          "force",
+          "lease"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 7,
+      "kind": "semantic",
+      "question": "Что произойдёт, если клиент отправит слишком много запросов подряд?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/readme.md",
+        "Документация/Бэкенд/spaces_endpoints.md",
+        "Роли/QA Lead.md",
+        "Роли/Team Lead | Scrum Master.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.08097262500086799,
+        "search": 0.34540936899429653,
+        "fusion": 0.0,
+        "total": 0.4263819939951645
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Что произойдёт, если клиент отправит слишком много запросов подряд?"
+        ],
+        "fallback": true,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 8,
+      "kind": "semantic",
+      "question": "Как накатить изменения в базе данных?",
+      "sources": [
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой widgets.md",
+        "Документация/readme.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.2365304409977398,
+        "search": 0.3366191559980507,
+        "fusion": 0.0,
+        "total": 0.5731495969957905
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "nacat",
+          "base",
+          "database",
+          "changes",
+          "changes_in_database"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 1,
+      "id": 9,
+      "kind": "semantic",
+      "question": "Почему браузер ругается на сертификат при локальном запуске?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Календари/Сроки действия.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/readme.md",
+        "Документация/Бэкенд/Формат ошибок.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.13143150799442083,
+        "search": 0.3319957140047336,
+        "fusion": 0.0,
+        "total": 0.4634272219991544
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "browser",
+          "certificate",
+          "local",
+          "error",
+          "issue"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 10,
+      "kind": "semantic",
+      "question": "Кто в команде отвечает за настройку CI и деплой?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/readme.md",
+        "Роли/QA Lead.md",
+        "Роли/Team Lead | Scrum Master.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.08728082000016002,
+        "search": 0.3298546450023423,
+        "fusion": 0.0,
+        "total": 0.4171354650025023
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 1,
+      "id": 11,
+      "kind": "mixed",
+      "question": "Какие переменные окружения фронтенда реально используются?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Документация/readme.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Фронтенд/05-Разработка/Тестирование.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.39474471200082917,
+        "search": 1.5169027149968315,
+        "fusion": 0.0,
+        "total": 1.9116474269976607
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search",
+          "/no_search_result",
+          "/no_search_result_2",
+          "/no_search_result_3"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 1,
+      "id": 12,
+      "kind": "mixed",
+      "question": "Какой формат ошибок возвращает API?",
+      "sources": [
+        "Документация/Фронтенд/05-Разработка/Решение проблем.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/API клиент.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Фронтенд/04-Функциональность/Интеграция с API.md",
+        "Документация/Бэкенд/Формат ошибок.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.3386943559962674,
+        "search": 0.7423362609988544,
+        "fusion": 0.0,
+        "total": 1.0810306169951218
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "error",
+          "format",
+          "API"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 13,
+      "kind": "mixed",
+      "question": "Какая политика миграций принята в проекте?",
+      "sources": [
+        "Документация/readme.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 0.25,
+      "timings": {
+        "keywords": 0.07855859799747122,
+        "search": 0.32091728300292743,
+        "fusion": 0.0,
+        "total": 0.39947588100039866
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Какая политика миграций принята в проекте?"
+        ],
+        "fallback": true,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 1,
+      "id": 14,
+      "kind": "mixed",
+      "question": "Где хранятся секреты для CI и где их настраивать в GitHub?",
+      "sources": [
+        "Календари/Сроки действия.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/readme.md",
+        "Роли/DevOps | CI-CD Engineer.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.3724849930003984,
+        "search": 0.31219330099702347,
+        "fusion": 0.0,
+        "total": 0.6846782939974219
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 1,
+      "id": 15,
+      "kind": "mixed",
+      "question": "На каких портах доступны frontend, API и pgAdmin при локальном запуске?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой entities.md",
+        "Документация/Фронтенд/04-Функциональность/Интеграция с API.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/API клиент.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.09670201699918834,
+        "search": 0.32378016299480805,
+        "fusion": 0.0,
+        "total": 0.4204821799939964
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "frontend",
+          "api",
+          "pgadmin"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 1,
+      "kind": "exact",
+      "question": "Какие настройки нужны для asyncpg?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/readme.md",
+        "Документация/Фронтенд/04-Функциональность/Пространства.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.2329863609993481,
+        "search": 0.32300750900321873,
+        "fusion": 0.0,
+        "total": 0.5559938700025668
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "asyncpg"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 2,
+      "id": 2,
+      "kind": "exact",
+      "question": "Какая длина строки задана для Ruff?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/Team Lead | Scrum Master.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.25554858499526745,
+        "search": 0.37248883600113913,
+        "fusion": 0.0,
+        "total": 0.6280374209964066
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Ruff",
+          "строка",
+          "длина",
+          "длина строки",
+          "строка."
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 2,
+      "id": 3,
+      "kind": "exact",
+      "question": "Какие хуки запускает pre-commit?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Процессы/readme.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Календари/Сроки действия.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.1934099360005348,
+        "search": 0.3146624889996019,
+        "fusion": 0.0,
+        "total": 0.5080724250001367
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "pre-commit",
+          "commit",
+          "commit message",
+          "code review",
+          "code submission"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 4,
+      "kind": "exact",
+      "question": "Что такое FSD и какие слои в нём есть?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Работа с Git.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Календари/Сроки действия.md",
+        "Роли/Documentation Lead (Docs).md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.10322920399630675,
+        "search": 0.3459587219986133,
+        "fusion": 0.0,
+        "total": 0.4491879259949201
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "FSD",
+          "слои"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 5,
+      "kind": "exact",
+      "question": "Как инициализировать slowapi в FastAPI?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.11304394199396484,
+        "search": 0.32579738899949007,
+        "fusion": 0.0,
+        "total": 0.4388413309934549
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no_keywords /"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 6,
+      "kind": "exact",
+      "question": "Когда использовать git push --force-with-lease?",
+      "sources": [
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/QA Lead.md",
+        "Документация/Работа с Git.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.1293570540001383,
+        "search": 0.3408926730044186,
+        "fusion": 0.0,
+        "total": 0.4702497270045569
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "git push",
+          "force",
+          "lease"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 7,
+      "kind": "semantic",
+      "question": "Что произойдёт, если клиент отправит слишком много запросов подряд?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/readme.md",
+        "Документация/Бэкенд/spaces_endpoints.md",
+        "Роли/QA Lead.md",
+        "Роли/Team Lead | Scrum Master.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.08537059499940369,
+        "search": 0.3457394130018656,
+        "fusion": 0.0,
+        "total": 0.4311100080012693
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Что произойдёт, если клиент отправит слишком много запросов подряд?"
+        ],
+        "fallback": true,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 8,
+      "kind": "semantic",
+      "question": "Как накатить изменения в базе данных?",
+      "sources": [
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой widgets.md",
+        "Документация/readme.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.23621301200182643,
+        "search": 0.3448367790042539,
+        "fusion": 0.0,
+        "total": 0.5810497910060803
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "nacat",
+          "base",
+          "database",
+          "changes",
+          "changes_in_database"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 2,
+      "id": 9,
+      "kind": "semantic",
+      "question": "Почему браузер ругается на сертификат при локальном запуске?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Календари/Сроки действия.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/readme.md",
+        "Документация/Бэкенд/Формат ошибок.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.13195144299970707,
+        "search": 0.3223870150031871,
+        "fusion": 0.0,
+        "total": 0.4543384580028942
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "browser",
+          "certificate",
+          "local",
+          "error",
+          "issue"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 10,
+      "kind": "semantic",
+      "question": "Кто в команде отвечает за настройку CI и деплой?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/readme.md",
+        "Роли/QA Lead.md",
+        "Роли/Team Lead | Scrum Master.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.0863189260053332,
+        "search": 0.35508825299621094,
+        "fusion": 0.0,
+        "total": 0.44140717900154414
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 2,
+      "id": 11,
+      "kind": "mixed",
+      "question": "Какие переменные окружения фронтенда реально используются?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Документация/readme.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Фронтенд/05-Разработка/Тестирование.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.3553654350034776,
+        "search": 0.5316324939994956,
+        "fusion": 0.0,
+        "total": 0.8869979290029733
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search",
+          "/no_search_result",
+          "/no_search_result_2",
+          "/no_search_result_3"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 2,
+      "id": 12,
+      "kind": "mixed",
+      "question": "Какой формат ошибок возвращает API?",
+      "sources": [
+        "Документация/Фронтенд/05-Разработка/Решение проблем.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/API клиент.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Фронтенд/04-Функциональность/Интеграция с API.md",
+        "Документация/Бэкенд/Формат ошибок.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.12590910399740096,
+        "search": 0.3535323820033227,
+        "fusion": 0.0,
+        "total": 0.47944148600072367
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "error",
+          "format",
+          "API"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 13,
+      "kind": "mixed",
+      "question": "Какая политика миграций принята в проекте?",
+      "sources": [
+        "Документация/readme.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 0.25,
+      "timings": {
+        "keywords": 0.08000539700151421,
+        "search": 0.30823390299337916,
+        "fusion": 0.0,
+        "total": 0.38823929999489337
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Какая политика миграций принята в проекте?"
+        ],
+        "fallback": true,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 2,
+      "id": 14,
+      "kind": "mixed",
+      "question": "Где хранятся секреты для CI и где их настраивать в GitHub?",
+      "sources": [
+        "Календари/Сроки действия.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/readme.md",
+        "Роли/DevOps | CI-CD Engineer.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.3900148650063784,
+        "search": 0.3530425230055698,
+        "fusion": 0.0,
+        "total": 0.7430573880119482
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 2,
+      "id": 15,
+      "kind": "mixed",
+      "question": "На каких портах доступны frontend, API и pgAdmin при локальном запуске?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой entities.md",
+        "Документация/Фронтенд/04-Функциональность/Интеграция с API.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/API клиент.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.10146197600261075,
+        "search": 0.3290238020053948,
+        "fusion": 0.0,
+        "total": 0.4304857780080056
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "frontend",
+          "api",
+          "pgadmin"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 1,
+      "kind": "exact",
+      "question": "Какие настройки нужны для asyncpg?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/readme.md",
+        "Документация/Фронтенд/04-Функциональность/Пространства.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.23075262799829943,
+        "search": 0.32657033600116847,
+        "fusion": 0.0,
+        "total": 0.5573229639994679
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "asyncpg"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 3,
+      "id": 2,
+      "kind": "exact",
+      "question": "Какая длина строки задана для Ruff?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/Team Lead | Scrum Master.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.2698281729972223,
+        "search": 0.3200803790023201,
+        "fusion": 0.0,
+        "total": 0.5899085519995424
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Ruff",
+          "строка",
+          "длина",
+          "длина строки",
+          "строка."
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 3,
+      "id": 3,
+      "kind": "exact",
+      "question": "Какие хуки запускает pre-commit?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Процессы/readme.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Календари/Сроки действия.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.18784905299980892,
+        "search": 0.3460032000002684,
+        "fusion": 0.0,
+        "total": 0.5338522530000773
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "pre-commit",
+          "commit",
+          "commit message",
+          "code review",
+          "code submission"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 4,
+      "kind": "exact",
+      "question": "Что такое FSD и какие слои в нём есть?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Работа с Git.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Календари/Сроки действия.md",
+        "Роли/Documentation Lead (Docs).md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.09971833199961111,
+        "search": 0.32044153999595437,
+        "fusion": 0.0,
+        "total": 0.4201598719955655
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "FSD",
+          "слои"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 5,
+      "kind": "exact",
+      "question": "Как инициализировать slowapi в FastAPI?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.1260285229946021,
+        "search": 0.3475275849996251,
+        "fusion": 0.0,
+        "total": 0.4735561079942272
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no_keywords /"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 6,
+      "kind": "exact",
+      "question": "Когда использовать git push --force-with-lease?",
+      "sources": [
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/QA Lead.md",
+        "Документация/Работа с Git.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.1424068010019255,
+        "search": 0.395140315995377,
+        "fusion": 0.0,
+        "total": 0.5375471169973025
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "git push",
+          "force",
+          "lease"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 7,
+      "kind": "semantic",
+      "question": "Что произойдёт, если клиент отправит слишком много запросов подряд?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/readme.md",
+        "Документация/Бэкенд/spaces_endpoints.md",
+        "Роли/QA Lead.md",
+        "Роли/Team Lead | Scrum Master.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.09178882199921645,
+        "search": 0.3877874919999158,
+        "fusion": 0.0,
+        "total": 0.47957631399913225
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Что произойдёт, если клиент отправит слишком много запросов подряд?"
+        ],
+        "fallback": true,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 8,
+      "kind": "semantic",
+      "question": "Как накатить изменения в базе данных?",
+      "sources": [
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой widgets.md",
+        "Документация/readme.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.24901345199759817,
+        "search": 0.3371882689971244,
+        "fusion": 0.0,
+        "total": 0.5862017209947226
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "nacat",
+          "base",
+          "database",
+          "changes",
+          "changes_in_database"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 3,
+      "id": 9,
+      "kind": "semantic",
+      "question": "Почему браузер ругается на сертификат при локальном запуске?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Календари/Сроки действия.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/readme.md",
+        "Документация/Бэкенд/Формат ошибок.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.15086945700022625,
+        "search": 0.47383085700130323,
+        "fusion": 0.0,
+        "total": 0.6247003140015295
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "browser",
+          "certificate",
+          "local",
+          "error",
+          "issue"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 10,
+      "kind": "semantic",
+      "question": "Кто в команде отвечает за настройку CI и деплой?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/readme.md",
+        "Роли/QA Lead.md",
+        "Роли/Team Lead | Scrum Master.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.09089029200549703,
+        "search": 0.42571462099294877,
+        "fusion": 0.0,
+        "total": 0.5166049129984458
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 3,
+      "id": 11,
+      "kind": "mixed",
+      "question": "Какие переменные окружения фронтенда реально используются?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Документация/readme.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Фронтенд/05-Разработка/Тестирование.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.3582417340003303,
+        "search": 0.6766843120058184,
+        "fusion": 0.0,
+        "total": 1.0349260460061487
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search",
+          "/no_search_result",
+          "/no_search_result_2",
+          "/no_search_result_3"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 3,
+      "id": 12,
+      "kind": "mixed",
+      "question": "Какой формат ошибок возвращает API?",
+      "sources": [
+        "Документация/Фронтенд/05-Разработка/Решение проблем.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/API клиент.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Фронтенд/04-Функциональность/Интеграция с API.md",
+        "Документация/Бэкенд/Формат ошибок.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.13311863700073445,
+        "search": 0.4218202720003319,
+        "fusion": 0.0,
+        "total": 0.5549389090010663
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "error",
+          "format",
+          "API"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 13,
+      "kind": "mixed",
+      "question": "Какая политика миграций принята в проекте?",
+      "sources": [
+        "Документация/readme.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 0.25,
+      "timings": {
+        "keywords": 0.08675385700189508,
+        "search": 0.44858410300366813,
+        "fusion": 0.0,
+        "total": 0.5353379600055632
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Какая политика миграций принята в проекте?"
+        ],
+        "fallback": true,
+        "tolerant": false
+      }
+    },
+    {
+      "run": 3,
+      "id": 14,
+      "kind": "mixed",
+      "question": "Где хранятся секреты для CI и где их настраивать в GitHub?",
+      "sources": [
+        "Календари/Сроки действия.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/readme.md",
+        "Роли/DevOps | CI-CD Engineer.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.3769743800003198,
+        "search": 0.407235913000477,
+        "fusion": 0.0,
+        "total": 0.7842102930007968
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search"
+        ],
+        "fallback": false,
+        "tolerant": true
+      }
+    },
+    {
+      "run": 3,
+      "id": 15,
+      "kind": "mixed",
+      "question": "На каких портах доступны frontend, API и pgAdmin при локальном запуске?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой entities.md",
+        "Документация/Фронтенд/04-Функциональность/Интеграция с API.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/API клиент.md"
+      ],
+      "hit": false,
+      "rr": 0.0,
+      "timings": {
+        "keywords": 0.10286986400024034,
+        "search": 0.3381607319970499,
+        "fusion": 0.0,
+        "total": 0.4410305959972902
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "frontend",
+          "api",
+          "pgadmin"
+        ],
+        "fallback": false,
+        "tolerant": false
+      }
+    }
+  ]
+}
