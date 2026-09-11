@@ -32,6 +32,26 @@ cd src && ../.venv/bin/python main.py build-index
 git check-ignore -v src/docs/any.md src/chunks.pkl src/index.faiss
 ```
 
+# 🔎 Гибридный поиск (задание 5): полнотекстовый поиск
+
+- **Выбор: SQLite FTS5**, не `rank_bm25`. Он встроен в стандартную библиотеку
+  Python (`sqlite3`), ставить ничего не нужно, индекс лежит на диске рядом с
+  FAISS (`src/index.fts.sqlite`, производные данные под `.gitignore`).
+- `src/rag/fulltext.py`: `build_fts(chunks)` строит таблицу по тем же чанкам,
+  что и FAISS, `rowid` = позиция чанка в списке = идентификатор, который
+  возвращает FAISS. `search_fts(query, top_k)` возвращает `[(chunk_id, rank)]`,
+  ранг с единицы, порядок по `bm25()`.
+- Запрос превращается в выражение MATCH: каждое слово в кавычках, между
+  словами `OR`. Так пунктуация и `--force-with-lease` не ломают синтаксис,
+  а bm25 всё равно поднимает чанки с более редкими словами.
+- Индекс строится в `build_index` вместе с FAISS. Пересобрать только FTS
+  из сохранённого `chunks.pkl`, не пересчитывая эмбеддинги:
+  `cd src && ../.venv/bin/python -m rag.fulltext`.
+- **Ограничение**: токенизатор `unicode61` не знает морфологии русского,
+  «миграций» и «миграции» для него разные слова. Подробности в `REPORT-hybrid.md`.
+- Бенчмарк: `python -m bench.run --label after-fts --pipeline fts` (только FTS,
+  без вектора и ключевых слов). Тесты: `pytest -q` (pytest установлен в `.venv`).
+
 # 📋 The Problem
 
 - **Growing Documentation**: Knowledge scattered across files
