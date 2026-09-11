@@ -145,7 +145,8 @@ def ask_llm(prompt):
         json={
             "model": OLLAMA_MODEL,
             "prompt": prompt,
-            "stream": False
+            "stream": False,
+            "think": False
         }
     )
     return response.json()["response"]

@@ -6,6 +6,7 @@ Usage: python -m bench.report --before before [--after after-all after-fts ...]
 import argparse
 import json
 import sys
+from statistics import median
 from pathlib import Path
 
 from bench.metrics import latency_summary, quality_summary
@@ -103,6 +104,20 @@ def expansion_counts(results_list):
     return "keyword extraction: " + ("; ".join(parts) if parts else "not used")
 
 
+def parallel_search_table(results_list):
+    """Vector alone, FTS alone and the parallel phase wall clock, to show FTS adds no latency."""
+    lines = ["| ms, median | vector alone | fts alone | parallel phase | parallel / vector |", "|---|---|---|---|---|"]
+    for r in results_list:
+        metas = [(rec["meta"], rec["timings"]) for rec in r["records"] if rec.get("meta", {}).get("vector_ms") is not None and not rec["failed"]]
+        if not metas:
+            continue
+        vector = median(m["vector_ms"] for m, _ in metas)
+        fts = median(m["fts_ms"] for m, _ in metas)
+        wall = median(t["search"] * 1000 for _, t in metas)
+        lines.append(f"| {r['label']} | {vector:.1f} | {fts:.1f} | {wall:.1f} | {wall / vector:.2f} |")
+    return "\n".join(lines) if len(lines) > 2 else ""
+
+
 def print_report(results_list, show_questions=True):
     labels = ", ".join(f"{r['label']} ({r['pipeline']}, runs={r['runs']})" for r in results_list)
     print(f"\nResults: {labels}\n")
@@ -112,6 +127,10 @@ def print_report(results_list, show_questions=True):
     failed = {r["label"]: sum(1 for rec in r["records"] if rec["failed"]) for r in results_list}
     print("\nfailed questions: " + ", ".join(f"{k}={v}" for k, v in failed.items()))
     print(expansion_counts(results_list))
+    parallel = parallel_search_table(results_list)
+    if parallel:
+        print("\nSearch phase: vector alone vs FTS alone vs both (parallel where the pipeline runs them so):\n")
+        print(parallel)
     if len(results_list) > 1:
         print("\nRank of the first correct chunk, run 1:\n")
         print(rank_comparison(results_list))

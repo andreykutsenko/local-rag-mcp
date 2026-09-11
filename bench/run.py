@@ -144,12 +144,42 @@ def make_keywords_pipeline():
     return run
 
 
+def make_hybrid_pipeline(weights=(1.0, 1.0)):
+    """Full pipeline: keywords, vector and FTS in parallel, RRF, top-K."""
+    ensure_index_exists()
+    from config import CHUNKS_PATH
+    from rag.hybrid import hybrid_search
+
+    with open(SRC_DIR / CHUNKS_PATH, "rb") as f:
+        chunks = pickle.load(f)
+
+    def run(question):
+        result = hybrid_search(question, top_k=TOP_K, weights=weights, candidates=FUSION_CANDIDATES)
+        sources = [normalize_source(chunks[chunk_id]["source"]) for chunk_id in result.chunk_ids]
+        t = result.timings
+        timings = {"keywords": t["keywords"], "search": t["search"], "fusion": t["fusion"], "total": t["total"]}
+        meta = {
+            "keywords": result.expansion.keywords,
+            "fallback": result.expansion.used_fallback,
+            "tolerant": result.expansion.needed_tolerant_parse,
+            "vector_ms": t["vector"] * 1000,
+            "fts_ms": t["fts"] * 1000,
+            "fts_error": result.fts_error,
+            "weights": list(weights),
+        }
+        return sources, timings, meta
+
+    return run
+
+
 PIPELINES = {
     "vector": make_vector_pipeline,
     "keywords": make_keywords_pipeline,
     "fts": make_fts_pipeline,
     "rrf": make_rrf_pipeline,
     "rrf-weighted": lambda: make_rrf_pipeline(weights=[VECTOR_WEIGHT, FTS_WEIGHT]),
+    "all": make_hybrid_pipeline,
+    "all-weighted": lambda: make_hybrid_pipeline(weights=(VECTOR_WEIGHT, FTS_WEIGHT)),
 }
 
 
