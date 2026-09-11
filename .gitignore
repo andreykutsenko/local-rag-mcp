@@ -247,6 +247,7 @@ python-rag/
 !/SPEC-hybrid.md
 !/docs/Task-RAG.md
 !/REPORT-hybrid.md
+!/bench/results/*.json
 
 # Private knowledge base and its derived data (assignment 5, <privacy>)
 src/docs/*
