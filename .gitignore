@@ -242,3 +242,7 @@ python-rag/
 
 /**.md
 /**.txt
+
+# Assignment 5: spec and original task text are tracked on purpose
+!/SPEC-hybrid.md
+!/docs/Task-RAG.md
