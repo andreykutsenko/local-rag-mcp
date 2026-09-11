@@ -90,6 +90,19 @@ def retrieve(query: str):
     return [chunks[i] for i in ids[0]]
 
 
+def search_vector(query: str, top_k: int):
+    """Ranked chunk ids for fusion: [(chunk_id, rank)], rank from 1. `retrieve` is unchanged."""
+    if index is None or len(chunks) == 0:
+        if not _ensure_index_exists():
+            return []
+
+    q_emb = model.encode([query])
+    faiss.normalize_L2(q_emb)
+
+    _, ids = index.search(q_emb, top_k)
+    return [(int(chunk_id), rank) for rank, chunk_id in enumerate(ids[0], start=1) if chunk_id >= 0]
+
+
 def build_prompt(query, contexts):
     """Build prompt with retrieved context."""
     if not contexts:

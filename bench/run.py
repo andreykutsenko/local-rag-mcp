@@ -19,6 +19,9 @@ RESULTS_DIR = ROOT / "bench" / "results"
 STAGES = ("keywords", "search", "fusion")
 KINDS = (EXACT, SEMANTIC, MIXED)
 TOP_K = 5
+FUSION_CANDIDATES = 20
+VECTOR_WEIGHT = 0.3
+FTS_WEIGHT = 1.0
 WARMUP_QUESTION = "warm-up"
 
 
@@ -70,7 +73,53 @@ def make_fts_pipeline():
     return run
 
 
-PIPELINES = {"vector": make_vector_pipeline, "fts": make_fts_pipeline}
+def make_rrf_pipeline(weights=None):
+    """Vector and FTS candidate lists fused with RRF, then top-K. No keywords, searches run one after another."""
+    ensure_index_exists()
+    from config import CHUNKS_PATH
+    from rag.fulltext import search_fts
+    from rag.fusion import reciprocal_rank_fusion
+    from rag.query import search_vector
+
+    with open(SRC_DIR / CHUNKS_PATH, "rb") as f:
+        chunks = pickle.load(f)
+
+    def run(question):
+        started = time.perf_counter()
+        vector_ids = [chunk_id for chunk_id, _ in search_vector(question, FUSION_CANDIDATES)]
+        vector_elapsed = time.perf_counter() - started
+        fts_started = time.perf_counter()
+        fts_ids = [chunk_id for chunk_id, _ in search_fts(question, FUSION_CANDIDATES)]
+        fts_elapsed = time.perf_counter() - fts_started
+        fusion_started = time.perf_counter()
+        fused = reciprocal_rank_fusion([vector_ids, fts_ids], weights=weights)
+        fusion_elapsed = time.perf_counter() - fusion_started
+        search_elapsed = vector_elapsed + fts_elapsed
+        sources = [normalize_source(chunks[chunk_id]["source"]) for chunk_id, _ in fused[:TOP_K]]
+        timings = {
+            "keywords": 0.0,
+            "search": search_elapsed,
+            "fusion": fusion_elapsed,
+            "total": search_elapsed + fusion_elapsed,
+        }
+        meta = {
+            "vector_ms": vector_elapsed * 1000,
+            "fts_ms": fts_elapsed * 1000,
+            "weights": weights or [1.0, 1.0],
+            "vector_sources": [normalize_source(chunks[i]["source"]) for i in vector_ids[:TOP_K]],
+            "fts_sources": [normalize_source(chunks[i]["source"]) for i in fts_ids[:TOP_K]],
+        }
+        return sources, timings, meta
+
+    return run
+
+
+PIPELINES = {
+    "vector": make_vector_pipeline,
+    "fts": make_fts_pipeline,
+    "rrf": make_rrf_pipeline,
+    "rrf-weighted": lambda: make_rrf_pipeline(weights=[VECTOR_WEIGHT, FTS_WEIGHT]),
+}
 
 
 def evaluate_task(pipeline, task, run_number, top_k):

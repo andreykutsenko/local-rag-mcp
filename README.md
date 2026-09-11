@@ -52,6 +52,21 @@ git check-ignore -v src/docs/any.md src/chunks.pkl src/index.faiss
 - Бенчмарк: `python -m bench.run --label after-fts --pipeline fts` (только FTS,
   без вектора и ключевых слов). Тесты: `pytest -q` (pytest установлен в `.venv`).
 
+# 🔎 Гибридный поиск (задание 5): слияние RRF
+
+- `src/rag/fusion.py`: `reciprocal_rank_fusion(runs, k=60, weights=None)` принимает
+  список ранжированных списков идентификаторов и возвращает `[(chunk_id, score)]`,
+  лучший первым. `score(d) = Σ w_i / (k + rank_i(d))`, ранг с единицы, документ из
+  одного списка получает одно слагаемое. Ничьи решаются порядком первого
+  появления, результат детерминирован. О поиске модуль не знает.
+- `search_vector(query, top_k)` в `rag/query.py` — новая функция, отдающая
+  `[(chunk_id, rank)]` для слияния; `retrieve` не менялась.
+- **Глубина кандидатов**: каждый поиск отдаёт 20 кандидатов (`FUSION_CANDIDATES`
+  в `bench/run.py`), слияние режется до топ-5. Выбрано до замера, не подбиралось.
+- Пайплайны бенчмарка: `rrf` (веса 1.0/1.0) и `rrf-weighted` (вектор 0.3,
+  FTS 1.0, проверка гипотезы о неравных компонентах). В этом шаге поиски
+  выполняются последовательно, параллельный запуск — следующий шаг.
+
 # 📋 The Problem
 
 - **Growing Documentation**: Knowledge scattered across files
