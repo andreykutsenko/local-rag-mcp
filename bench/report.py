@@ -65,6 +65,19 @@ def per_question_table(results):
     return "\n".join(lines)
 
 
+def expansion_counts(results_list):
+    """How often the keyword step fell back and how often it needed tolerant parsing."""
+    parts = []
+    for r in results_list:
+        metas = [rec["meta"] for rec in r["records"] if rec.get("meta")]
+        if not metas:
+            continue
+        fallback = sum(1 for m in metas if m.get("fallback"))
+        tolerant = sum(1 for m in metas if m.get("tolerant"))
+        parts.append(f"{r['label']}: fallback {fallback}/{len(metas)}, tolerant parse {tolerant}/{len(metas)}")
+    return "keyword extraction: " + ("; ".join(parts) if parts else "not used")
+
+
 def print_report(results_list, show_questions=True):
     labels = ", ".join(f"{r['label']} ({r['pipeline']}, runs={r['runs']})" for r in results_list)
     print(f"\nResults: {labels}\n")
@@ -73,6 +86,7 @@ def print_report(results_list, show_questions=True):
     print(latency_table(results_list))
     failed = {r["label"]: sum(1 for rec in r["records"] if rec["failed"]) for r in results_list}
     print("\nfailed questions: " + ", ".join(f"{k}={v}" for k, v in failed.items()))
+    print(expansion_counts(results_list))
     if show_questions:
         for r in results_list:
             print(f"\nPer question, run 1 — {r['label']}:\n")

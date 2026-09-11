@@ -32,6 +32,26 @@ cd src && ../.venv/bin/python main.py build-index
 git check-ignore -v src/docs/any.md src/chunks.pkl src/index.faiss
 ```
 
+# 🔎 Гибридный поиск (задание 5): принятые решения
+
+- **Query Expansion: ключевые слова, а не альтернативные формулировки.**
+  `src/rag/keywords.py`, один вызов `qwen3:0.6b` через Ollama, `temperature=0`,
+  `think: false` (без этого блок рассуждений на CPU не укладывается в минуты).
+  `num_thread` в запрос не передаётся: значение зашито в модель, своё перебило бы его.
+- **В поиск уходит исходный вопрос плюс ключевые слова** одной строкой
+  (`expand_query`): вопрос, перевод строки, ключевые слова через запятую.
+- **Парсер ответа терпимый**: режет по запятым и переводам строк, снимает
+  маркеры списков и эхо метки `Keywords:`, убирает пустые и дубликаты (без учёта
+  регистра), выбрасывает элементы длиннее 60 символов. Fallback на исходный
+  вопрос только если ничего не разобралось или ответ длиннее 200 символов;
+  в лог уходит предупреждение, прогон продолжается.
+- **Бенчмарк**: `python -m bench.run --label <label> --pipeline <vector|keywords> --runs N`,
+  `python -m bench.report --before before --after <labels...>`. Шаг с моделью
+  недетерминирован, для него 3 прогона. Итоги и предсказания: `REPORT-hybrid.md`.
+- **Тесты**: `pytest -q` (спека) или без установки pytest
+  `.venv/bin/python -m unittest discover -s tests`; классы `unittest.TestCase`
+  собираются обоими раннерами. Внешних вызовов в тестах нет.
+
 # 📋 The Problem
 
 - **Growing Documentation**: Knowledge scattered across files
