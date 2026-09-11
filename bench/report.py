@@ -58,11 +58,36 @@ def per_question_table(results):
     for r in results["records"]:
         if r["run"] != 1:
             continue
-        rank = "-" if r["rr"] == 0 else str(round(1 / r["rr"]))
+        rank = rank_of(r)
         shown = "; ".join(Path(s).name.replace("|", "\\|") for s in r["sources"][:3])
         status = "FAIL" if r["failed"] else ("yes" if r["hit"] else "no")
         lines.append(f"| {r['id']} | {r['kind']} | {status} | {rank} | {shown} |")
     return "\n".join(lines)
+
+
+def rank_of(record):
+    return "-" if record["rr"] == 0 else str(round(1 / record["rr"]))
+
+
+def rank_comparison(results_list):
+    """Per question (run 1): rank of the first correct chunk under each label,
+    plus which questions only one of the labels found."""
+    labels = [r["label"] for r in results_list]
+    by_label = {r["label"]: {rec["id"]: rec for rec in r["records"] if rec["run"] == 1} for r in results_list}
+    ids = sorted(by_label[labels[0]])
+    lines = ["| id | kind | " + " | ".join(f"{label} rank" for label in labels) + " |", "|---|---|" + "---|" * len(labels)]
+    for qid in ids:
+        kind = by_label[labels[0]][qid]["kind"]
+        lines.append(f"| {qid} | {kind} | " + " | ".join(rank_of(by_label[label][qid]) for label in labels) + " |")
+    only = []
+    for label in labels:
+        others = [l for l in labels if l != label]
+        found_only_here = [
+            qid for qid in ids
+            if by_label[label][qid]["hit"] and not any(by_label[o][qid]["hit"] for o in others)
+        ]
+        only.append(f"found only by {label}: {found_only_here or 'none'}")
+    return "\n".join(lines) + "\n" + "\n".join(only)
 
 
 def print_report(results_list, show_questions=True):
@@ -73,6 +98,9 @@ def print_report(results_list, show_questions=True):
     print(latency_table(results_list))
     failed = {r["label"]: sum(1 for rec in r["records"] if rec["failed"]) for r in results_list}
     print("\nfailed questions: " + ", ".join(f"{k}={v}" for k, v in failed.items()))
+    if len(results_list) > 1:
+        print("\nRank of the first correct chunk, run 1:\n")
+        print(rank_comparison(results_list))
     if show_questions:
         for r in results_list:
             print(f"\nPer question, run 1 — {r['label']}:\n")

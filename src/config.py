@@ -13,6 +13,7 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 # FAISS index paths (relative to src directory)
 FAISS_INDEX_PATH = "index.faiss"
 CHUNKS_PATH = "chunks.pkl"
+FTS_INDEX_PATH = "index.fts.sqlite"
 
 # Ollama configuration
 OLLAMA_URL = "http://localhost:11434/api/generate"
