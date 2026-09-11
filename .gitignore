@@ -246,3 +246,7 @@ python-rag/
 # Assignment 5: spec and original task text are tracked on purpose
 !/SPEC-hybrid.md
 !/docs/Task-RAG.md
+
+# Private knowledge base and its derived data (assignment 5, <privacy>)
+src/docs/*
+bench/answers.*
