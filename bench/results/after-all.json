@@ -1,0 +1,1722 @@
+{
+  "label": "after-all",
+  "pipeline": "all",
+  "runs": 3,
+  "top_k": 5,
+  "stages": [
+    "keywords",
+    "search",
+    "fusion"
+  ],
+  "kinds": [
+    "exact",
+    "semantic",
+    "mixed"
+  ],
+  "records": [
+    {
+      "run": 1,
+      "id": 1,
+      "kind": "exact",
+      "question": "Какие настройки нужны для asyncpg?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Процессы/Mid-Sprint Sync.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой app.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.2916037800023332,
+        "search": 0.4241116199991666,
+        "fusion": 5.338800110621378e-05,
+        "total": 0.7157819299973198
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "asyncpg"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 422.85290300060296,
+        "fts_ms": 4.508838996116538,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 2,
+      "kind": "exact",
+      "question": "Какая длина строки задана для Ruff?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Роли/Engineer (FE|BE).md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.3305770329970983,
+        "search": 0.35971310100285336,
+        "fusion": 4.310000076657161e-05,
+        "total": 0.6903447299991967
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Ruff",
+          "строка",
+          "длина",
+          "длина строки",
+          "строка."
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 358.7527650015545,
+        "fts_ms": 2.7717619959730655,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 3,
+      "kind": "exact",
+      "question": "Какие хуки запускает pre-commit?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.21499858100287383,
+        "search": 0.36937657900125487,
+        "fusion": 5.4408003052230924e-05,
+        "total": 0.5844444600006682
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "pre-commit",
+          "commit",
+          "commit message",
+          "code",
+          "code submission"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 366.11187100061215,
+        "fts_ms": 2.906790999986697,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 4,
+      "kind": "exact",
+      "question": "Что такое FSD и какие слои в нём есть?",
+      "sources": [
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Фронтенд/01-Обзор проекта/Архитектура.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой entities.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.17188173299655318,
+        "search": 0.4877004499940085,
+        "fusion": 4.791899846168235e-05,
+        "total": 0.6596460930013563
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "FSD",
+          "слои"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 486.127875999955,
+        "fts_ms": 3.5300390009069815,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 5,
+      "kind": "exact",
+      "question": "Как инициализировать slowapi в FastAPI?",
+      "sources": [
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Документация/Работа с Git.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.1180671859983704,
+        "search": 0.34553547100222204,
+        "fusion": 6.963699706830084e-05,
+        "total": 0.4636851850009407
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no_keywords /"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 344.4547519975458,
+        "fts_ms": 3.3653179998509586,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 6,
+      "kind": "exact",
+      "question": "Когда использовать git push --force-with-lease?",
+      "sources": [
+        "Документация/Работа с Git.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/QA Lead.md",
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.1410734169985517,
+        "search": 0.39063407399953576,
+        "fusion": 6.516700523206964e-05,
+        "total": 0.5317898060020525
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "git push",
+          "force",
+          "lease"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 386.2386550026713,
+        "fts_ms": 2.698786003747955,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 7,
+      "kind": "semantic",
+      "question": "Что произойдёт, если клиент отправит слишком много запросов подряд?",
+      "sources": [
+        "Роли/Product Owner (PO).md",
+        "Роли/Tech Lead.md",
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Установка и запуск.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.08681780399638228,
+        "search": 0.3776402100047562,
+        "fusion": 6.580199988093227e-05,
+        "total": 0.4645398079956067
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Что произойдёт, если клиент отправит слишком много запросов подряд?"
+        ],
+        "fallback": true,
+        "tolerant": false,
+        "vector_ms": 374.9197599972831,
+        "fts_ms": 2.71985699509969,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 8,
+      "kind": "semantic",
+      "question": "Как накатить изменения в базе данных?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой features.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Бэкенд/База данных/migration_policy.md"
+      ],
+      "hit": true,
+      "rr": 0.2,
+      "timings": {
+        "keywords": 0.24417327699484304,
+        "search": 0.359359754002071,
+        "fusion": 4.887300019618124e-05,
+        "total": 0.6036278889951063
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "nacat",
+          "base",
+          "database",
+          "changes",
+          "changes_in_database"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 357.67952499736566,
+        "fts_ms": 4.080648002855014,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 9,
+      "kind": "semantic",
+      "question": "Почему браузер ругается на сертификат при локальном запуске?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Локальный запуск/Прокси.md",
+        "Календари/Сроки действия.md",
+        "Документация/Фронтенд/04-Функциональность/Авторизация.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.18914355400193017,
+        "search": 0.3388566210051067,
+        "fusion": 4.51989981229417e-05,
+        "total": 0.5280582520063035
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "browser",
+          "certificate",
+          "local",
+          "error",
+          "issue"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 337.74835700023687,
+        "fts_ms": 3.7776539975311607,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 10,
+      "kind": "semantic",
+      "question": "Кто в команде отвечает за настройку CI и деплой?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "README.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.14201791799860075,
+        "search": 0.3538803120027296,
+        "fusion": 4.612500197254121e-05,
+        "total": 0.49595597100415034
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 352.11414900550153,
+        "fts_ms": 1.6313710002577864,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 11,
+      "kind": "mixed",
+      "question": "Какие переменные окружения фронтенда реально используются?",
+      "sources": [
+        "Документация/Фронтенд/05-Разработка/Тестирование.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Установка и запуск.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 0.25,
+      "timings": {
+        "keywords": 0.4111810120011796,
+        "search": 0.5613132029975532,
+        "fusion": 5.773299926659092e-05,
+        "total": 0.97256684799504
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search",
+          "/no_search_result",
+          "/no_search_result_2",
+          "/no_search_result_3"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 559.7986030043103,
+        "fts_ms": 16.257490999123547,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 12,
+      "kind": "mixed",
+      "question": "Какой формат ошибок возвращает API?",
+      "sources": [
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Фронтенд/05-Разработка/Решение проблем.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.13955957900179783,
+        "search": 0.35468029199546436,
+        "fusion": 5.878599768038839e-05,
+        "total": 0.49431265000021085
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "error",
+          "format",
+          "API"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 350.49185599928023,
+        "fts_ms": 1.7910300011863,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 13,
+      "kind": "mixed",
+      "question": "Какая политика миграций принята в проекте?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Миграции.md",
+        "Документация/Бэкенд/База данных/migration_policy.md",
+        "Документация/readme.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.0766300789982779,
+        "search": 0.33952515100099845,
+        "fusion": 4.571799945551902e-05,
+        "total": 0.4162141819979297
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Какая политика миграций принята в проекте?"
+        ],
+        "fallback": true,
+        "tolerant": false,
+        "vector_ms": 335.7933410006808,
+        "fts_ms": 1.4387250048457645,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 14,
+      "kind": "mixed",
+      "question": "Где хранятся секреты для CI и где их настраивать в GitHub?",
+      "sources": [
+        "Календари/Сроки действия.md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.37264997799502453,
+        "search": 0.3521734559981269,
+        "fusion": 6.436699914047495e-05,
+        "total": 0.724901534995297
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 346.5819819975877,
+        "fts_ms": 1.9520580026437528,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 1,
+      "id": 15,
+      "kind": "mixed",
+      "question": "На каких портах доступны frontend, API и pgAdmin при локальном запуске?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Инициализация БД.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Docker.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Локальный запуск/Прокси.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.24452640600065934,
+        "search": 0.9755085869983304,
+        "fusion": 6.902500172145665e-05,
+        "total": 1.2201198480033781
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "frontend",
+          "api",
+          "pgadmin"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 965.2709079964552,
+        "fts_ms": 3.232265000406187,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 1,
+      "kind": "exact",
+      "question": "Какие настройки нужны для asyncpg?",
+      "sources": [
+        "Процессы/Mid-Sprint Sync.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Бэкенд/База данных/Использование asyncpg.md"
+      ],
+      "hit": true,
+      "rr": 0.2,
+      "timings": {
+        "keywords": 0.28943018700374523,
+        "search": 1.0782397639995907,
+        "fusion": 0.00014020300295669585,
+        "total": 1.367829246999463
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_think"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 1070.898327998293,
+        "fts_ms": 1.898224996693898,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 2,
+      "kind": "exact",
+      "question": "Какая длина строки задана для Ruff?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Роли/Engineer (FE|BE).md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.417663348998758,
+        "search": 0.49180218300170964,
+        "fusion": 6.232400482986122e-05,
+        "total": 0.9095450199965853
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Ruff",
+          "строка",
+          "длина",
+          "длина строки",
+          "строка."
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 489.1133120036102,
+        "fts_ms": 2.7094530014437623,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 3,
+      "kind": "exact",
+      "question": "Какие хуки запускает pre-commit?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.27949449000152526,
+        "search": 0.38959315099782543,
+        "fusion": 4.898299812339246e-05,
+        "total": 0.6691534040000988
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "pre-commit",
+          "commit",
+          "commit message",
+          "code review",
+          "code submission"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 386.3764159978018,
+        "fts_ms": 1.894711000204552,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 4,
+      "kind": "exact",
+      "question": "Что такое FSD и какие слои в нём есть?",
+      "sources": [
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Фронтенд/01-Обзор проекта/Архитектура.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой entities.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.10529903800488682,
+        "search": 0.34868575699510984,
+        "fusion": 5.5880998843349516e-05,
+        "total": 0.45405240599939134
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "FSD",
+          "слои"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 346.95208999619354,
+        "fts_ms": 1.8454399978509173,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 5,
+      "kind": "exact",
+      "question": "Как инициализировать slowapi в FastAPI?",
+      "sources": [
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Документация/Работа с Git.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.11410678699758137,
+        "search": 0.4291503720014589,
+        "fusion": 4.713900125352666e-05,
+        "total": 0.5433167759983917
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no_keywords /"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 425.33853100030683,
+        "fts_ms": 1.118767999287229,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 6,
+      "kind": "exact",
+      "question": "Когда использовать git push --force-with-lease?",
+      "sources": [
+        "Документация/Работа с Git.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/QA Lead.md",
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.13725325600535143,
+        "search": 0.3796679149963893,
+        "fusion": 3.972299600718543e-05,
+        "total": 0.5169725070009008
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "git push",
+          "force",
+          "lease"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 377.7868690012838,
+        "fts_ms": 6.253126004594378,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 7,
+      "kind": "semantic",
+      "question": "Что произойдёт, если клиент отправит слишком много запросов подряд?",
+      "sources": [
+        "Роли/Product Owner (PO).md",
+        "Роли/Tech Lead.md",
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Установка и запуск.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.07835362100013299,
+        "search": 0.33993181600089883,
+        "fusion": 6.532599945785478e-05,
+        "total": 0.41836297000554623
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Что произойдёт, если клиент отправит слишком много запросов подряд?"
+        ],
+        "fallback": true,
+        "tolerant": false,
+        "vector_ms": 335.8712090048357,
+        "fts_ms": 1.549296997836791,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 8,
+      "kind": "semantic",
+      "question": "Как накатить изменения в базе данных?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой features.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Бэкенд/База данных/migration_policy.md"
+      ],
+      "hit": true,
+      "rr": 0.2,
+      "timings": {
+        "keywords": 0.24193288399692392,
+        "search": 0.3697992930028704,
+        "fusion": 4.233400250086561e-05,
+        "total": 0.6117915939976228
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "nacat",
+          "base",
+          "database",
+          "changes",
+          "changes_in_database"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 365.7717120004236,
+        "fts_ms": 2.0194969984004274,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 9,
+      "kind": "semantic",
+      "question": "Почему браузер ругается на сертификат при локальном запуске?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Локальный запуск/Прокси.md",
+        "Календари/Сроки действия.md",
+        "Документация/Фронтенд/04-Функциональность/Авторизация.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.13353092900069896,
+        "search": 0.35148185399884824,
+        "fusion": 4.3012994865421206e-05,
+        "total": 0.48506887999974424
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "browser",
+          "certificate",
+          "local",
+          "error",
+          "issue"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 348.6129059965606,
+        "fts_ms": 1.7043199986801483,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 10,
+      "kind": "semantic",
+      "question": "Кто в команде отвечает за настройку CI и деплой?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "README.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.08809168099833187,
+        "search": 0.3736771999974735,
+        "fusion": 5.9940997743979096e-05,
+        "total": 0.4618420640035765
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 371.96217799646547,
+        "fts_ms": 0.9966180004994385,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 11,
+      "kind": "mixed",
+      "question": "Какие переменные окружения фронтенда реально используются?",
+      "sources": [
+        "Документация/Фронтенд/05-Разработка/Тестирование.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Установка и запуск.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 0.25,
+      "timings": {
+        "keywords": 0.3562328010011697,
+        "search": 0.5743489819942624,
+        "fusion": 4.326099588070065e-05,
+        "total": 0.9306424579990562
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search",
+          "/no_search_result",
+          "/no_search_result_2",
+          "/no_search_result_3"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 571.0312230003183,
+        "fts_ms": 1.951906997419428,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 12,
+      "kind": "mixed",
+      "question": "Какой формат ошибок возвращает API?",
+      "sources": [
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Фронтенд/05-Разработка/Решение проблем.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.12566782000067178,
+        "search": 0.34661166399746435,
+        "fusion": 5.4374002502299845e-05,
+        "total": 0.4723485310023534
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "error",
+          "format",
+          "API"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 344.290707995242,
+        "fts_ms": 1.8947799981106073,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 13,
+      "kind": "mixed",
+      "question": "Какая политика миграций принята в проекте?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Миграции.md",
+        "Документация/Бэкенд/База данных/migration_policy.md",
+        "Документация/readme.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.08447156000329414,
+        "search": 0.3214701260003494,
+        "fusion": 3.962199843954295e-05,
+        "total": 0.40599227000348037
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Какая политика миграций принята в проекте?"
+        ],
+        "fallback": true,
+        "tolerant": false,
+        "vector_ms": 318.1357430003118,
+        "fts_ms": 1.399364999087993,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 14,
+      "kind": "mixed",
+      "question": "Где хранятся секреты для CI и где их настраивать в GitHub?",
+      "sources": [
+        "Календари/Сроки действия.md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.39099436499964213,
+        "search": 0.384877147997031,
+        "fusion": 5.309699918143451e-05,
+        "total": 0.7759364029989229
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 381.22204600222176,
+        "fts_ms": 2.744630000961479,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "id": 15,
+      "kind": "mixed",
+      "question": "На каких портах доступны frontend, API и pgAdmin при локальном запуске?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Инициализация БД.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Docker.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Локальный запуск/Прокси.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.09749046599608846,
+        "search": 0.3563005649994011,
+        "fusion": 4.184499994153157e-05,
+        "total": 0.4538466130034067
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "frontend",
+          "api",
+          "pgadmin"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 353.35216199746355,
+        "fts_ms": 1.9087960026809014,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 1,
+      "kind": "exact",
+      "question": "Какие настройки нужны для asyncpg?",
+      "sources": [
+        "Процессы/Mid-Sprint Sync.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Бэкенд/База данных/Использование asyncpg.md"
+      ],
+      "hit": true,
+      "rr": 0.2,
+      "timings": {
+        "keywords": 0.11174025899526896,
+        "search": 0.3590096599946264,
+        "fusion": 5.764900561189279e-05,
+        "total": 0.4708185939962277
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no think /"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 357.74884300190024,
+        "fts_ms": 0.5417900028987788,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 2,
+      "kind": "exact",
+      "question": "Какая длина строки задана для Ruff?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Роли/Engineer (FE|BE).md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.2924554299970623,
+        "search": 0.32889659700595075,
+        "fusion": 5.7270000979769975e-05,
+        "total": 0.6214234430008219
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Ruff",
+          "строка",
+          "длина",
+          "длина строки",
+          "строка."
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 327.1303289948264,
+        "fts_ms": 2.668593995622359,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 3,
+      "kind": "exact",
+      "question": "Какие хуки запускает pre-commit?",
+      "sources": [
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md",
+        "Документация/Бэкенд/Инструменты качества кода (Ruff, Pre-commit).md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.22464964899700135,
+        "search": 0.35862097299832385,
+        "fusion": 5.035300273448229e-05,
+        "total": 0.5833357900046394
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "pre-commit",
+          "commit",
+          "commit message",
+          "code review",
+          "code submission"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 357.3589119987446,
+        "fts_ms": 1.0718979974626563,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 4,
+      "kind": "exact",
+      "question": "Что такое FSD и какие слои в нём есть?",
+      "sources": [
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Фронтенд/01-Обзор проекта/Архитектура.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой entities.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.10414320699783275,
+        "search": 0.3522067509984481,
+        "fusion": 3.842000296572223e-05,
+        "total": 0.4563992839975981
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "FSD",
+          "слои"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 348.96880699670874,
+        "fts_ms": 1.627793004445266,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 5,
+      "kind": "exact",
+      "question": "Как инициализировать slowapi в FastAPI?",
+      "sources": [
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Документация/Работа с Git.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Documentation Lead (Docs).md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.11766131300100824,
+        "search": 0.36814372400112916,
+        "fusion": 4.3894004193134606e-05,
+        "total": 0.4858597929996904
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/ no_keywords /"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 363.8207629992394,
+        "fts_ms": 1.7543979993206449,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 6,
+      "kind": "exact",
+      "question": "Когда использовать git push --force-with-lease?",
+      "sources": [
+        "Документация/Работа с Git.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/QA Lead.md",
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Документация/Работа с Git.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.13647659800335532,
+        "search": 0.3558078089990886,
+        "fusion": 0.00012390099436743185,
+        "total": 0.4924225560025661
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "git push",
+          "force",
+          "lease"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 351.10688699933235,
+        "fts_ms": 2.014248995692469,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 7,
+      "kind": "semantic",
+      "question": "Что произойдёт, если клиент отправит слишком много запросов подряд?",
+      "sources": [
+        "Роли/Product Owner (PO).md",
+        "Роли/Tech Lead.md",
+        "Документация/Бэкенд/Ограничение частоты запросов (Rate Limiting).md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Установка и запуск.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.09038053199765272,
+        "search": 0.45000235400220845,
+        "fusion": 5.080299888504669e-05,
+        "total": 0.5404483300007996
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Что произойдёт, если клиент отправит слишком много запросов подряд?"
+        ],
+        "fallback": true,
+        "tolerant": false,
+        "vector_ms": 446.1113180004759,
+        "fts_ms": 0.799226007075049,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 8,
+      "kind": "semantic",
+      "question": "Как накатить изменения в базе данных?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Использование asyncpg.md",
+        "Документация/Фронтенд/03-Architecture FSD/Слой features.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Стиль кода.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Бэкенд/База данных/migration_policy.md"
+      ],
+      "hit": true,
+      "rr": 0.2,
+      "timings": {
+        "keywords": 0.2520259669981897,
+        "search": 0.36190452099981485,
+        "fusion": 7.531500159529969e-05,
+        "total": 0.6140211329984595
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "nacat",
+          "base",
+          "database",
+          "changes",
+          "changes_in_database"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 357.67600600229343,
+        "fts_ms": 0.653240000247024,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 9,
+      "kind": "semantic",
+      "question": "Почему браузер ругается на сертификат при локальном запуске?",
+      "sources": [
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Локальный запуск/Прокси.md",
+        "Календари/Сроки действия.md",
+        "Документация/Фронтенд/04-Функциональность/Авторизация.md"
+      ],
+      "hit": true,
+      "rr": 0.3333333333333333,
+      "timings": {
+        "keywords": 0.14019854700018186,
+        "search": 0.346523640997475,
+        "fusion": 5.135699757374823e-05,
+        "total": 0.48678967999876477
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "browser",
+          "certificate",
+          "local",
+          "error",
+          "issue"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 343.0160000061733,
+        "fts_ms": 1.029779996315483,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 10,
+      "kind": "semantic",
+      "question": "Кто в команде отвечает за настройку CI и деплой?",
+      "sources": [
+        "Роли/Engineer (FE|BE).md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "README.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 0.5,
+      "timings": {
+        "keywords": 0.08904058400366921,
+        "search": 0.3649956459994428,
+        "fusion": 5.615300324279815e-05,
+        "total": 0.45410484400053974
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 361.9554600008996,
+        "fts_ms": 0.6399339981726371,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 11,
+      "kind": "mixed",
+      "question": "Какие переменные окружения фронтенда реально используются?",
+      "sources": [
+        "Документация/Фронтенд/05-Разработка/Тестирование.md",
+        "Роли/DevOps | CI-CD Engineer.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Установка и запуск.md",
+        "Документация/readme.md"
+      ],
+      "hit": true,
+      "rr": 0.25,
+      "timings": {
+        "keywords": 0.3875823910057079,
+        "search": 0.5459819589959807,
+        "fusion": 4.290699871489778e-05,
+        "total": 0.9336226399973384
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search",
+          "/no_search_result",
+          "/no_search_result_2",
+          "/no_search_result_3"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 542.2841629988397,
+        "fts_ms": 1.2742290055030026,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 12,
+      "kind": "mixed",
+      "question": "Какой формат ошибок возвращает API?",
+      "sources": [
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Бэкенд/Формат ошибок.md",
+        "Документация/Фронтенд/05-Разработка/Решение проблем.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.12002814700099407,
+        "search": 0.3202849730005255,
+        "fusion": 4.9264999688602984e-05,
+        "total": 0.44037464699795237
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "error",
+          "format",
+          "API"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 316.29840200184844,
+        "fts_ms": 1.834162998420652,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 13,
+      "kind": "mixed",
+      "question": "Какая политика миграций принята в проекте?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Миграции.md",
+        "Документация/Бэкенд/База данных/migration_policy.md",
+        "Документация/readme.md",
+        "Роли/Engineer (FE|BE).md",
+        "Роли/QA Lead.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.07940003200201318,
+        "search": 0.32688159099780023,
+        "fusion": 6.277600186876953e-05,
+        "total": 0.40635648000170477
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "Какая политика миграций принята в проекте?"
+        ],
+        "fallback": true,
+        "tolerant": false,
+        "vector_ms": 322.636541997781,
+        "fts_ms": 1.2167730019427836,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 14,
+      "kind": "mixed",
+      "question": "Где хранятся секреты для CI и где их настраивать в GitHub?",
+      "sources": [
+        "Календари/Сроки действия.md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md",
+        "Документация/Фронтенд/01-Обзор проекта/Технологии.md",
+        "Роли/Engineer (FE|BE).md",
+        "Документация/Бэкенд/База данных/Переменные окружения.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.4164672800034168,
+        "search": 0.3609658190034679,
+        "fusion": 6.072999531170353e-05,
+        "total": 0.7775084620006965
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "/no_keywords",
+          "/no_search"
+        ],
+        "fallback": false,
+        "tolerant": true,
+        "vector_ms": 358.7752780003939,
+        "fts_ms": 1.5024989988887683,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "id": 15,
+      "kind": "mixed",
+      "question": "На каких портах доступны frontend, API и pgAdmin при локальном запуске?",
+      "sources": [
+        "Документация/Бэкенд/База данных/Инициализация БД.md",
+        "Документация/Фронтенд/02-Настройка и конфигурация/Docker.md",
+        "Документация/Бэкенд/База данных/Архитектура бэкенда.md",
+        "Документация/Локальный запуск/Прокси.md",
+        "Документация/Фронтенд/01-Обзор проекта/О проекте.md"
+      ],
+      "hit": true,
+      "rr": 1.0,
+      "timings": {
+        "keywords": 0.0969146709976485,
+        "search": 0.3546038810018217,
+        "fusion": 4.8674999561626464e-05,
+        "total": 0.4515803489994141
+      },
+      "failed": null,
+      "meta": {
+        "keywords": [
+          "frontend",
+          "api",
+          "pgadmin"
+        ],
+        "fallback": false,
+        "tolerant": false,
+        "vector_ms": 351.43229000095744,
+        "fts_ms": 1.5518560030614026,
+        "fts_error": "",
+        "weights": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  ]
+}

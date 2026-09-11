@@ -252,3 +252,4 @@ python-rag/
 # Private knowledge base and its derived data (assignment 5, <privacy>)
 src/docs/*
 bench/answers.*
+*.sqlite

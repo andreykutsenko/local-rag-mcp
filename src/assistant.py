@@ -7,7 +7,8 @@ from rich.markdown import Markdown
 
 # Add current directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
-from rag.query import retrieve, build_prompt, ask_llm
+from rag.query import build_prompt, ask_llm
+from rag.hybrid import retrieve_hybrid
 from mcp.client import MCPClient
 from config import OLLAMA_MODEL
 
@@ -120,7 +121,7 @@ Your JSON response:"""
     def query(self, user_query: str, verbose=False):
         """Answer a question using RAG and optionally MCP tools."""
         # Step 1: Retrieve from RAG
-        contexts = retrieve(user_query)
+        contexts = retrieve_hybrid(user_query)
         
         if verbose:
             print(f"📚 Retrieved {len(contexts)} relevant chunks from knowledge base")

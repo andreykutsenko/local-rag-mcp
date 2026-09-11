@@ -5,6 +5,7 @@ Usage: python -m bench.run --label before [--pipeline vector] [--runs 1]
 
 import argparse
 import json
+import pickle
 import sys
 import time
 from pathlib import Path
@@ -18,6 +19,9 @@ RESULTS_DIR = ROOT / "bench" / "results"
 STAGES = ("keywords", "search", "fusion")
 KINDS = (EXACT, SEMANTIC, MIXED)
 TOP_K = 5
+FUSION_CANDIDATES = 20
+VECTOR_WEIGHT = 0.3
+FTS_WEIGHT = 1.0
 WARMUP_QUESTION = "warm-up"
 
 
@@ -45,12 +49,138 @@ def make_vector_pipeline():
         chunks = retrieve(question)
         elapsed = time.perf_counter() - started
         sources = [normalize_source(c["source"]) for c in chunks]
-        return sources, {"keywords": 0.0, "search": elapsed, "fusion": 0.0, "total": elapsed}
+        return sources, {"keywords": 0.0, "search": elapsed, "fusion": 0.0, "total": elapsed}, {}
 
     return run
 
 
-PIPELINES = {"vector": make_vector_pipeline}
+def make_fts_pipeline():
+    """Full-text search only (SQLite FTS5) over the same chunks; no vector, no keywords."""
+    ensure_index_exists()
+    from config import CHUNKS_PATH
+    from rag.fulltext import search_fts
+
+    with open(SRC_DIR / CHUNKS_PATH, "rb") as f:
+        chunks = pickle.load(f)
+
+    def run(question):
+        started = time.perf_counter()
+        ranked = search_fts(question, TOP_K)
+        elapsed = time.perf_counter() - started
+        sources = [normalize_source(chunks[chunk_id]["source"]) for chunk_id, _ in ranked]
+        return sources, {"keywords": 0.0, "search": elapsed, "fusion": 0.0, "total": elapsed}, {}
+
+    return run
+
+
+def make_rrf_pipeline(weights=None):
+    """Vector and FTS candidate lists fused with RRF, then top-K. No keywords, searches run one after another."""
+    ensure_index_exists()
+    from config import CHUNKS_PATH
+    from rag.fulltext import search_fts
+    from rag.fusion import reciprocal_rank_fusion
+    from rag.query import search_vector
+
+    with open(SRC_DIR / CHUNKS_PATH, "rb") as f:
+        chunks = pickle.load(f)
+
+    def run(question):
+        started = time.perf_counter()
+        vector_ids = [chunk_id for chunk_id, _ in search_vector(question, FUSION_CANDIDATES)]
+        vector_elapsed = time.perf_counter() - started
+        fts_started = time.perf_counter()
+        fts_ids = [chunk_id for chunk_id, _ in search_fts(question, FUSION_CANDIDATES)]
+        fts_elapsed = time.perf_counter() - fts_started
+        fusion_started = time.perf_counter()
+        fused = reciprocal_rank_fusion([vector_ids, fts_ids], weights=weights)
+        fusion_elapsed = time.perf_counter() - fusion_started
+        search_elapsed = vector_elapsed + fts_elapsed
+        sources = [normalize_source(chunks[chunk_id]["source"]) for chunk_id, _ in fused[:TOP_K]]
+        timings = {
+            "keywords": 0.0,
+            "search": search_elapsed,
+            "fusion": fusion_elapsed,
+            "total": search_elapsed + fusion_elapsed,
+        }
+        meta = {
+            "vector_ms": vector_elapsed * 1000,
+            "fts_ms": fts_elapsed * 1000,
+            "weights": weights or [1.0, 1.0],
+            "vector_sources": [normalize_source(chunks[i]["source"]) for i in vector_ids[:TOP_K]],
+            "fts_sources": [normalize_source(chunks[i]["source"]) for i in fts_ids[:TOP_K]],
+        }
+        return sources, timings, meta
+
+    return run
+
+
+def make_keywords_pipeline():
+    """Query expansion by the model, then the upstream vector search over question + keywords."""
+    ensure_index_exists()
+    from rag.keywords import expand_query, extract_keywords_detailed
+    from rag.query import retrieve
+
+    def run(question):
+        started = time.perf_counter()
+        expansion = extract_keywords_detailed(question)
+        keywords_elapsed = time.perf_counter() - started
+        search_started = time.perf_counter()
+        chunks = retrieve(expand_query(question, expansion.keywords))
+        search_elapsed = time.perf_counter() - search_started
+        sources = [normalize_source(c["source"]) for c in chunks]
+        timings = {
+            "keywords": keywords_elapsed,
+            "search": search_elapsed,
+            "fusion": 0.0,
+            "total": keywords_elapsed + search_elapsed,
+        }
+        meta = {
+            "keywords": expansion.keywords,
+            "fallback": expansion.used_fallback,
+            "tolerant": expansion.needed_tolerant_parse,
+        }
+        return sources, timings, meta
+
+    return run
+
+
+def make_hybrid_pipeline(weights=(1.0, 1.0)):
+    """Full pipeline: keywords, vector and FTS in parallel, RRF, top-K."""
+    ensure_index_exists()
+    from config import CHUNKS_PATH
+    from rag.hybrid import hybrid_search
+
+    with open(SRC_DIR / CHUNKS_PATH, "rb") as f:
+        chunks = pickle.load(f)
+
+    def run(question):
+        result = hybrid_search(question, top_k=TOP_K, weights=weights, candidates=FUSION_CANDIDATES)
+        sources = [normalize_source(chunks[chunk_id]["source"]) for chunk_id in result.chunk_ids]
+        t = result.timings
+        timings = {"keywords": t["keywords"], "search": t["search"], "fusion": t["fusion"], "total": t["total"]}
+        meta = {
+            "keywords": result.expansion.keywords,
+            "fallback": result.expansion.used_fallback,
+            "tolerant": result.expansion.needed_tolerant_parse,
+            "vector_ms": t["vector"] * 1000,
+            "fts_ms": t["fts"] * 1000,
+            "fts_error": result.fts_error,
+            "weights": list(weights),
+        }
+        return sources, timings, meta
+
+    return run
+
+
+PIPELINES = {
+    "vector": make_vector_pipeline,
+    "keywords": make_keywords_pipeline,
+    "fts": make_fts_pipeline,
+    "rrf": make_rrf_pipeline,
+    "rrf-weighted": lambda: make_rrf_pipeline(weights=[VECTOR_WEIGHT, FTS_WEIGHT]),
+    "all": make_hybrid_pipeline,
+    "all-weighted": lambda: make_hybrid_pipeline(weights=(VECTOR_WEIGHT, FTS_WEIGHT)),
+}
 
 
 def evaluate_task(pipeline, task, run_number, top_k):
@@ -64,9 +194,10 @@ def evaluate_task(pipeline, task, run_number, top_k):
         "rr": 0.0,
         "timings": {stage: 0.0 for stage in (*STAGES, "total")},
         "failed": None,
+        "meta": {},
     }
     try:
-        sources, timings = pipeline(task["question"])
+        sources, timings, meta = pipeline(task["question"])
     except Exception as error:
         record["failed"] = f"{type(error).__name__}: {error}"
         return record
@@ -74,6 +205,7 @@ def evaluate_task(pipeline, task, run_number, top_k):
     record["hit"] = hit_at_k(sources, task["answers"], top_k)
     record["rr"] = reciprocal_rank(sources[:top_k], task["answers"])
     record["timings"] = timings
+    record["meta"] = meta
     return record
 
 
@@ -112,7 +244,11 @@ def main(argv=None):
     try:
         pipeline = PIPELINES[args.pipeline]()
         records = run_benchmark(pipeline, TASKS, args.runs)
-    except BenchError as error:
+    except (BenchError, FileNotFoundError, RuntimeError) as error:
+        print(f"Error: {error}", file=sys.stderr)
+        return 1
+    except RuntimeError as error:
+        # e.g. OllamaUnavailableError raised by the warm-up call
         print(f"Error: {error}", file=sys.stderr)
         return 1
 

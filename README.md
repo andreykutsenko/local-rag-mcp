@@ -1,396 +1,194 @@
-# Local RAG/MCP Knowledge Base Assistant
+# Local RAG/MCP Knowledge Base Assistant — гибридный поиск
 
-# 🛠️ Окружение с нуля (форк, задание 5)
+Форк [MobilaName/local-rag-mcp](https://github.com/MobilaName/local-rag-mcp),
+домашнее задание 5 курса: гибридный поиск (вектор + полнотекстовый), слияние
+выдач по RRF и извлечение ключевых слов локальной моделью, с замерами
+«до» и «после» на замороженном наборе вопросов.
 
-Приватная база знаний в репозитории **отсутствует намеренно**: `src/docs/`,
-`chunks.pkl` (полный текст документов) и `index.faiss` (их эмбеддинги) закрыты
-в `.gitignore`. Положите свои документы (`.md`, `.txt`, `.pdf`, `.docx`)
-в `src/docs/`, вложенные каталоги допустимы.
+- Техническое задание: `SPEC-hybrid.md`; оригинал задания автора курса: `docs/Task-RAG.md`.
+- Результаты, предсказания и разбор: `REPORT-hybrid.md`.
+
+## Что это за проект
+
+Локальная система вопросов и ответов по документации организации. Всё
+работает на машине пользователя: документы не покидают диск, внешних API нет.
+
+- **RAG**: документы режутся на чанки, чанки индексируются, на вопрос
+  подбирается контекст, ответ генерирует локальная модель через Ollama.
+- **MCP**: сервер инструментов `read_document`, `list_documents`,
+  `search_documents`; модель может запросить полный документ.
+- **CLI**: `python main.py` — интерактивный режим.
+
+```
+вопрос → ключевые слова (Ollama) → [вектор FAISS ‖ FTS5 SQLite] → RRF → топ-5
+       → промпт с контекстом → Ollama → ответ + источники
+```
+
+Стек: Python 3.10+, FAISS, SentenceTransformers (`all-MiniLM-L6-v2`),
+SQLite FTS5 (стандартная библиотека), Ollama (`qwen3:0.6b`), FastMCP.
+
+## Что добавлено в форке
+
+| Модуль | Назначение |
+|---|---|
+| `src/rag/keywords.py` | `extract_keywords(question)`: один вызов модели, `temperature=0`, `think: false`, терпимый парсер, fallback на исходный вопрос |
+| `src/rag/fulltext.py` | `build_fts(chunks)` и `search_fts(query, top_k)`: SQLite FTS5 по тем же чанкам и с теми же идентификаторами, что FAISS |
+| `src/rag/fusion.py` | `reciprocal_rank_fusion(runs, k=60, weights=None)`: слияние ранжированных списков, о поиске не знает |
+| `src/rag/hybrid.py` | оркестрация: ключевые слова → вектор и FTS параллельно → RRF → топ-5 → ответ модели |
+| `src/rag/query.py` | новая `search_vector(query, top_k)` для слияния; `retrieve` не менялась; в `ask_llm` добавлен `think: false` |
+| `src/rag/build_index.py` | строит FTS-индекс рядом с FAISS |
+| `src/rag/ingest.py` | исправлен сбой апстрима на вложенных каталогах документов |
+| `src/assistant.py` | контекст берётся через `retrieve_hybrid` |
+| `bench/` | `tasks.py` (замороженный набор вопросов), `metrics.py`, `run.py`, `report.py`, `results/*.json` |
+| `tests/` | 31 тест по разделу `<tests>` спеки, внешних вызовов нет |
+
+Решения, принятые по спеке без уточняющих вопросов:
+
+- **Query Expansion — ключевые слова**, а не альтернативные формулировки.
+  В поиск уходит одна строка: вопрос, перевод строки, ключевые слова через
+  запятую (`expand_query`), одинаковая для вектора и FTS.
+- **Парсер ответа модели терпимый**: режет по запятым и переводам строк,
+  снимает маркеры списков и эхо метки `Keywords:`, убирает пустые и дубликаты
+  без учёта регистра, выбрасывает элементы длиннее 60 символов. Fallback на
+  исходный вопрос только если ничего не разобралось или ответ длиннее
+  200 символов; предупреждение в лог, прогон продолжается.
+- **Запрос к FTS**: каждое слово в кавычках, между словами `OR`, чтобы
+  пунктуация и `--force-with-lease` не ломали синтаксис MATCH; ранжирует bm25.
+- **Глубина кандидатов** для слияния: 20 на каждый поиск, топ-5 после RRF.
+  Выбрано до замера, не подбиралось.
+- **Веса RRF**: параметр `weights`, по умолчанию `(1.0, 1.0)`. Вес 0.3 для
+  вектора проверен одним отдельным замером как гипотеза, не подбирался.
+- **Параллельность**: два блокирующих поиска запускаются в
+  `ThreadPoolExecutor`, пул открывается на вызов и закрывается контекстным
+  менеджером. Отказ FTS не роняет запрос: предупреждение в лог, выдача из
+  векторного списка. Отказ вектора поднимается наверх.
+- **Метрика ранга**: позиция первого чанка из допустимого файла в топ-5.
+- **Ollama**: `think: false` во всех запросах (без этого qwen3 пишет блок
+  рассуждений и на CPU не укладывается в минуты); `num_thread` не передаётся,
+  значение 6 зашито в модель на этой машине, своё перебило бы его.
+
+## Окружение с нуля
 
 Требования: Python 3.10+, запущенная Ollama с моделью `qwen3:0.6b`.
 
 ```bash
-# 1. Виртуальное окружение в корне проекта и зависимости апстрима
+# 1. Виртуальное окружение в корне проекта и зависимости
 python3 -m venv .venv                       # если нет ensurepip: uv venv .venv --seed
 .venv/bin/pip install -r src/requirements.txt   # или: uv pip install --python .venv/bin/python -r src/requirements.txt
+.venv/bin/pip install pytest                    # только для тестов
 
-# 2. Ollama: проверить, что сервер отвечает и модель на месте
+# 2. Ollama: сервер отвечает, модель на месте
 curl -s http://127.0.0.1:11434/api/version
 ollama pull qwen3:0.6b                      # один раз
-
-# 3. Документы и индекс (команды выполняются из src/, пути в config.py относительные)
-cp -r /path/to/your/docs/* src/docs/
-cd src && ../.venv/bin/python main.py build-index
-
-# 4. Интерактивный режим
-../.venv/bin/python main.py
 ```
 
-Проверка, что документы и производные данные не попадут в git:
+Зависимости сверх апстрима не добавлялись: FTS5 входит в `sqlite3`
+стандартной библиотеки, pytest нужен только для тестов.
+
+## Свои документы
+
+Приватная база знаний в репозитории **отсутствует намеренно**: `src/docs/`,
+`chunks.pkl` (полный текст документов), `index.faiss` (их эмбеддинги) и
+`index.fts.sqlite` (их текст в FTS-таблице) закрыты в `.gitignore`.
+
+Положите документы (`.md`, `.txt`, `.pdf`, `.docx`) в `src/docs/`, вложенные
+каталоги допустимы:
 
 ```bash
-git check-ignore -v src/docs/any.md src/chunks.pkl src/index.faiss
+cp -r /path/to/your/docs/* src/docs/
+git check-ignore -v src/docs/any.md src/chunks.pkl src/index.faiss src/index.fts.sqlite
 ```
 
-# 📋 The Problem
+## Индекс
 
-- **Growing Documentation**: Knowledge scattered across files
-- **Information Retrieval**: Hard to find answers without keywords
-- **Privacy Concerns**: Cloud solutions may not comply with policies
+Команды выполняются из `src/`: пути в `config.py` относительные.
 
-```
-Users → Search → Answer = 😫
+```bash
+cd src && ../.venv/bin/python main.py build-index
 ```
 
-# ✨ The Solution
+Собирает FAISS (`index.faiss`), чанки (`chunks.pkl`) и FTS-индекс
+(`index.fts.sqlite`) по одному и тому же списку чанков. Пересобрать только
+FTS из сохранённых чанков, не пересчитывая эмбеддинги:
 
-A **local, intelligent Q&A system** using:
-
-- **RAG**: Semantic search over documentation
-- **MCP**: Dynamic document access
-- **Local LLM**: Privacy-preserving answers (Ollama)
-
-# ✨ Key Benefits
-
-- ✅ Privacy-first (runs locally)
-- ✅ No API costs
-- ✅ Fast semantic search
-- ✅ Intelligent document access
-- ✅ Complete data control
-
-# 🏗️ Architecture - Top Level
-
-```
-┌──────────────────────┐
-│   User Interface     │ (CLI)
-└──────────┬───────────┘
-           │
-     ┌─────┴─────┐
-     ▼           ▼
-  [RAG]       [MCP]
-   Query      Tools
-     │           │
-     └─────┬─────┘
-           ▼
-    [Ollama LLM]
+```bash
+cd src && ../.venv/bin/python -m rag.fulltext
 ```
 
-# 🏗️ Architecture - Storage
+Запуск: `../.venv/bin/python main.py` (интерактивно) или сквозной ответ
+одной командой: `../.venv/bin/python -m rag.hybrid "вопрос"`.
 
-```
-┌────────────────┐
-│  FAISS Index   │ Vector Database
-│  + MCP Tools   │
-└────────┬───────┘
-         │
-    ┌────▼─────┐
-    │   docs/  │
-    │directory │
-    └──────────┘
-```
+Настройки в `src/config.py`: `CHUNK_SIZE=700`, `CHUNK_OVERLAP=100`,
+`EMBEDDING_MODEL`, `OLLAMA_MODEL`, `TOP_K=5`, пути индексов. Размер чанка,
+перекрытие и модель эмбеддингов в работе не менялись: они задают базу сравнения.
 
-# 🔍 RAG Pipeline
+## Замеры
 
-1. Document Loading → Read .md, .txt, .pdf, .docx
-2. Chunking → Split into 700-char chunks
-3. Embedding → Use SentenceTransformers
-4. Indexing → Build FAISS vector index
-5. Query → Retrieve top 5 similar chunks
-6. Prompt Building → Create context-aware prompt
-7. LLM Generation → Get answer from model
+Набор из 15 вопросов с разметкой допустимых файлов: `bench/tasks.py`,
+заморожен до первого замера. Метрики: hit@5, MRR, задержка по этапам
+(ключевые слова / поиск / слияние), медиана и p95. Из корня репозитория:
 
-# 🔍 Why FAISS?
-
-- Fast vector similarity search
-- Lightweight and memory-efficient
-- No external dependencies
-- Perfect for local deployments
-- Millions of vectors supported
-
-# 🔧 MCP - Model Context Protocol
-
-MCP provides **standardized interface** for LLM tool access:
-
-```python
-read_document(file_path)
-list_documents()
-search_documents(query)
+```bash
+.venv/bin/python -m bench.run --label before --pipeline vector
+.venv/bin/python -m bench.run --label after-keywords --pipeline keywords --runs 3
+.venv/bin/python -m bench.run --label after-fts --pipeline fts
+.venv/bin/python -m bench.run --label after-rrf --pipeline rrf
+.venv/bin/python -m bench.run --label after-rrf-weighted --pipeline rrf-weighted
+.venv/bin/python -m bench.run --label after-all --pipeline all --runs 3
+.venv/bin/python -m bench.run --label after-all-weighted --pipeline all-weighted --runs 3
+.venv/bin/python -m bench.report --before before --after after-fts after-all
 ```
 
-# 🔧 MCP Benefits
+Пайплайны с моделью недетерминированы, для них 3 прогона; в отчёте среднее
+и разброс. Отказ на одном вопросе не прерывает остальные, он попадает в
+`failed`. Отсутствие индекса или недоступная Ollama дают понятное сообщение.
+Результаты лежат в `bench/results/<label>.json`. Каждый замер снят в отдельной
+ветке от базы: `feat/keywords`, `feat/fts`, `feat/rrf`, `feat/hybrid`.
 
-- Tool Use by LLM
-- Real-time document access
-- Standardized interface
-- Easy to extend
-- Local tool execution
+Тесты: `.venv/bin/python -m pytest -q` (или `python -m unittest discover -s tests`).
 
-# 💻 Tech Stack
+## Почему SQLite FTS5
 
-```
-Language:      Python 3.10+
-Vector DB:     FAISS
-Embeddings:    SentenceTransformers
-LLM:           Ollama (local)
-MCP:           FastMCP
-```
+Спека допускала `rank_bm25` либо SQLite FTS5. Выбран FTS5: он встроен в
+стандартную библиотеку Python, ставить ничего не нужно, индекс лежит на диске
+рядом с FAISS как производные данные. Ограничение: токенизатор `unicode61`
+не знает морфологии русского, «миграций» и «миграции» для него разные слова;
+латинские термины (asyncpg, Ruff, slowapi) он берёт надёжно, русские фразы
+находит только при совпадении словоформы. Не чинится в этой работе.
 
-# 📁 Project Structure
+## Модель
+
+Ключевые слова и финальный ответ: `qwen3:0.6b` через Ollama, как в апстриме.
+Оригинал задания допускает 0.6B–3B; на 0.6B содержание ключевых слов
+приемлемое, страдает формат, что лечится терпимым парсером, а не сменой
+модели. Известная слабость: на части вопросов модель отвечает служебными
+токенами вроде `/no_keywords`, которые проходят парсер как валидные элементы.
+Эмбеддинги: `all-MiniLM-L6-v2` из апстрима, англоязычная модель; на русских
+вопросах это главная причина слабой базы, см. `REPORT-hybrid.md`.
+
+## Структура
 
 ```
 src/
-├── config.py           Configuration
-├── main.py             CLI entry point
-├── assistant.py        Main orchestrator
+├── config.py            настройки
+├── main.py              CLI
+├── assistant.py         оркестратор RAG + MCP
 ├── rag/
-│   ├── ingest.py      Load documents
-│   ├── chunk.py       Split text
-│   ├── embed.py       Generate embeddings
-│   ├── build_index.py Build FAISS index
-│   └── query.py       Retrieve & generate
-├── mcp/
-│   ├── server.py      MCP tool definitions
-│   └── client.py      MCP client wrapper
-└── docs/              Documentation
+│   ├── ingest.py        загрузка документов
+│   ├── chunk.py         нарезка на чанки
+│   ├── embed.py         эмбеддинги
+│   ├── build_index.py   FAISS + FTS
+│   ├── query.py         векторный поиск, промпт, вызов модели
+│   ├── keywords.py      ключевые слова
+│   ├── fulltext.py      SQLite FTS5
+│   ├── fusion.py        RRF
+│   └── hybrid.py        конвейер целиком
+├── mcp/                 сервер и клиент MCP
+└── docs/                ваши документы (не в git)
+bench/                   набор вопросов, метрики, раннер, отчёт, результаты
+tests/                   тесты без внешних вызовов
 ```
 
-# 🚀 Index Building (Setup)
+## Лицензия
 
-```
-$ python main.py build-index
-
-1. Load documents
-  ↓
-2. Split into chunks
-  ↓
-3. Generate embeddings
-  ↓
-4. Build FAISS index
-  ↓
-5. Save files
-```
-
-# 🚀 Query Processing (Runtime)
-
-```
-User Question
-  ↓
-Embed question
-  ↓
-Search FAISS → Top 5 chunks
-  ↓
-LLM decides: Use MCP tools?
-  ↓
-Build prompt + context
-  ↓
-Call Ollama
-  ↓
-Return answer + sources
-```
-
-# ✨ Core Features
-
-- **Semantic Search**: Find by meaning, not keywords
-- **Multi-format**: .md, .txt, .pdf, .docx files
-- **Source Attribution**: Shows document sources
-- **MCP Tools**: LLM can read full documents
-- **No External APIs**: Runs locally only
-- **Fast Retrieval**: Sub-second search
-
-# ⚙️ Configuration Options
-
-```python
-CHUNK_SIZE = 700
-CHUNK_OVERLAP = 100
-EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-OLLAMA_MODEL = "qwen3:0.6b"
-TOP_K = 5
-```
-
-# 🎬 Live Demo - Starting
-
-```bash
-$ python main.py
-```
-
-Output:
-```
-🤖 Company Knowledge Base
-Ask questions about documentation
-Type 'exit' to stop
-```
-
-# 🎬 Demo - Query 1
-
-```
-❓ What are company values?
-
-🤖 Innovation, integrity, collaboration
-
-📚 Sources:
-  • Loan Rangers Team.md
-  • Info Security.md
-```
-
-# 🎬 Demo - Query 2
-
-```
-❓ What documents do we have?
-
-🤖 [Uses MCP list_documents]
-  • Loan Rangers Team.md
-  • Information Security.md
-  • Services.md
-```
-
-# 🎬 Demo - Query 3
-
-```
-❓ Full security policy?
-
-🤖 [Uses MCP read_document]
-[Full document content...]
-```
-
-# 🔐 Security - Local vs Cloud
-
-**Cloud**: Data → Internet → Server
-- ⚠️ Network transmission
-- ⚠️ External storage
-- ⚠️ Subscription costs
-
-**Local**: Data → Local System
-- ✅ No transmission
-- ✅ Local storage only
-- ✅ No costs
-
-# 🔐 Implementation Safeguards
-
-- **MCP Sandbox**: Prevents path traversal
-- **Local Storage**: Documents stay on device
-- **No Telemetry**: No tracking
-- **Offline Ready**: Works without internet
-
-# ⚡ Performance Benchmarks
-
-```
-Index Building:   ~30s (one-time)
-Query Embedding:  ~50ms
-FAISS Search:     ~5ms
-LLM Generation:   2-5s
-Total Cycle:      2-6s
-```
-
-# ⚡ Tuning for Speed
-
-```python
-# Faster (smaller model):
-OLLAMA_MODEL = "qwen3:0.6b"
-
-# Faster retrieval:
-TOP_K = 3
-CHUNK_SIZE = 500
-```
-
-# 🚢 Deployment - Single Machine
-
-```
-1. Install Ollama & Python deps
-2. Copy docs/ to server
-3. Build index
-4. Run with nohup
-
-$ nohup python main.py > log &
-```
-
-# 🚢 Scaling - Option 1: FastAPI
-
-```
-[HTTP Clients]			[HTTP Clients + Webllm]
-       ↓        						 ↓
-   [FastAPI]     				 [FastAPI]
-       ↓         					 ↓
-[Ollama + FAISS]      			  [FAISS]
-```
-
-# 🚢 Scaling - Option 2: Distributed
-
-```
-[Clients] → [Load Balancer]
-             ↓
-      [Multiple Retrievers]
-```
-
-# 🚢 Storage Scaling
-
-```
-Docs     Index      Build
-10 MB    ~2 MB      ~5s
-100 MB   ~20 MB     ~30s
-1 GB     ~200 MB    ~5min
-```
-
-# 🔮 Phase 2: Enhanced Features
-
-- ☐ Web UI (Streamlit)
-- ☐ API endpoints
-- ☐ Multi-language support
-- ☐ Document versioning
-- ☐ Fine-tuned embeddings
-
-# 🔮 Phase 3: Advanced
-
-- ☐ Conversation memory
-- ☐ Multi-hop reasoning
-- ☐ Metadata filtering
-- ☐ Feedback loop
-- ☐ Analytics dashboard
-
-# 🔮 Phase 4: Enterprise
-
-- ☐ User authentication
-- ☐ Audit logging
-- ☐ Role-based access
-- ☐ LLM fine-tuning
-- ☐ Cost analysis
-
-# 📊 Why This Works
-
-| Aspect | Traditional | Our RAG |
-|--------|---|---|
-| **Understanding** | Keywords | Semantic |
-| **Answers** | Documents | Direct |
-| **Privacy** | Cloud | Local |
-| **Cost** | Subscription | One-time |
-| **Speed** | Slow | Sub-second |
-
-# ✅ What You Have Now
-
-- Local privacy-first knowledge base
-- Fast semantic search (FAISS)
-- Intelligent tool use (MCP)
-- Maintainable Python code
-- Foundation for enterprise features
-
-# 🙋 Quick Reference
-
-```bash
-# Build index
-python main.py build-index
-
-# Run interactively
-python main.py
-
-# Check config
-cat config.py
-```
-
-# 📚 Resources
-
-- **Code**: MobilaName/local-rag-mcp
-- **FAISS**: facebook/faiss
-- **Ollama**: ollama.ai
-- **FastMCP**: github.com/jlowin/fastmcp
-- **Transformers**: huggingface.co
-
-**Thank You!**
+MIT, как в апстриме.
