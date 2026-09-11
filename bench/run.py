@@ -114,8 +114,39 @@ def make_rrf_pipeline(weights=None):
     return run
 
 
+def make_keywords_pipeline():
+    """Query expansion by the model, then the upstream vector search over question + keywords."""
+    ensure_index_exists()
+    from rag.keywords import expand_query, extract_keywords_detailed
+    from rag.query import retrieve
+
+    def run(question):
+        started = time.perf_counter()
+        expansion = extract_keywords_detailed(question)
+        keywords_elapsed = time.perf_counter() - started
+        search_started = time.perf_counter()
+        chunks = retrieve(expand_query(question, expansion.keywords))
+        search_elapsed = time.perf_counter() - search_started
+        sources = [normalize_source(c["source"]) for c in chunks]
+        timings = {
+            "keywords": keywords_elapsed,
+            "search": search_elapsed,
+            "fusion": 0.0,
+            "total": keywords_elapsed + search_elapsed,
+        }
+        meta = {
+            "keywords": expansion.keywords,
+            "fallback": expansion.used_fallback,
+            "tolerant": expansion.needed_tolerant_parse,
+        }
+        return sources, timings, meta
+
+    return run
+
+
 PIPELINES = {
     "vector": make_vector_pipeline,
+    "keywords": make_keywords_pipeline,
     "fts": make_fts_pipeline,
     "rrf": make_rrf_pipeline,
     "rrf-weighted": lambda: make_rrf_pipeline(weights=[VECTOR_WEIGHT, FTS_WEIGHT]),
@@ -184,6 +215,10 @@ def main(argv=None):
         pipeline = PIPELINES[args.pipeline]()
         records = run_benchmark(pipeline, TASKS, args.runs)
     except (BenchError, FileNotFoundError, RuntimeError) as error:
+        print(f"Error: {error}", file=sys.stderr)
+        return 1
+    except RuntimeError as error:
+        # e.g. OllamaUnavailableError raised by the warm-up call
         print(f"Error: {error}", file=sys.stderr)
         return 1
 
