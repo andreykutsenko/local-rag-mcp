@@ -1,5 +1,37 @@
 # Local RAG/MCP Knowledge Base Assistant
 
+# 🛠️ Окружение с нуля (форк, задание 5)
+
+Приватная база знаний в репозитории **отсутствует намеренно**: `src/docs/`,
+`chunks.pkl` (полный текст документов) и `index.faiss` (их эмбеддинги) закрыты
+в `.gitignore`. Положите свои документы (`.md`, `.txt`, `.pdf`, `.docx`)
+в `src/docs/`, вложенные каталоги допустимы.
+
+Требования: Python 3.10+, запущенная Ollama с моделью `qwen3:0.6b`.
+
+```bash
+# 1. Виртуальное окружение в корне проекта и зависимости апстрима
+python3 -m venv .venv                       # если нет ensurepip: uv venv .venv --seed
+.venv/bin/pip install -r src/requirements.txt   # или: uv pip install --python .venv/bin/python -r src/requirements.txt
+
+# 2. Ollama: проверить, что сервер отвечает и модель на месте
+curl -s http://127.0.0.1:11434/api/version
+ollama pull qwen3:0.6b                      # один раз
+
+# 3. Документы и индекс (команды выполняются из src/, пути в config.py относительные)
+cp -r /path/to/your/docs/* src/docs/
+cd src && ../.venv/bin/python main.py build-index
+
+# 4. Интерактивный режим
+../.venv/bin/python main.py
+```
+
+Проверка, что документы и производные данные не попадут в git:
+
+```bash
+git check-ignore -v src/docs/any.md src/chunks.pkl src/index.faiss
+```
+
 # 📋 The Problem
 
 - **Growing Documentation**: Knowledge scattered across files
